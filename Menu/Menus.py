@@ -1,4 +1,6 @@
 from Globais.Globais import *
+from Quiz.QuizLogica import mensagem_inicial_quiz
+
 
 def pedir_nome(message):
     user_id = message.from_user.id
@@ -44,6 +46,7 @@ def funcao_inicio(message):
         return
 
     if user_id in usuarios_quiz:
-        message(user_id)
-    else:
         enviar_menu(message)
+    else:
+        mensagem_inicial_quiz(message)
+

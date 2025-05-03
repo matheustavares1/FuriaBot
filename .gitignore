@@ -1,1 +1,44 @@
+# Bytecode do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de log e cache
+*.log
+*.sqlite3
+*.db
+*.pid
+*.bak
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+
+# Configurações de ambiente
 .env
+*.env
+
+# Diretórios de ambiente virtual
+venv/
+.env/
+.venv/
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos pessoais
+*.local
+*.secret
+
+# Arquivos de token/senhas
+token.txt
+*.key
+*.pem
