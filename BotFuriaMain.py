@@ -2,6 +2,7 @@ import threading
 
 import telebot
 from dotenv import load_dotenv
+
 from Globais import Globais
 import os
 
@@ -12,6 +13,7 @@ chave_api_telegram = os.getenv('CHAVE_API_TELEGRAM')
 Globais.bot = telebot.TeleBot(chave_api_telegram)
 bot = Globais.bot
 
+from Campeonato.ProximoCampeonato import proximo_campeonato_handler
 from Curiosidades.CuriosidadesLogic import chamar_curiosidades
 from Elenco.Elenco import elenco_atual
 from Menu.Menus import pedir_nome, funcao_inicio
@@ -31,6 +33,9 @@ bot.message_handler(commands=['quiz'])(lambda msg: mensagem_inicial_quiz(msg))
 bot.message_handler(commands=['iniciar_quiz'])(lambda msg: iniciar_quiz(msg))
 bot.message_handler(commands=['sair_quiz'])(lambda msg: sair_quiz(msg))
 bot.callback_query_handler(func=lambda call: True)(lambda call: processar_resposta (call))
+
+#Proximo campeonato da FURIA CS
+bot.message_handler(commands=['proximo_campeonato'])(lambda msg: proximo_campeonato_handler(msg))
 
 #Funcao para ultimas noticias do mundo do EaSports
 bot.message_handler(commands=['ultimas_noticias'])(lambda msg: ultimas_noticias(bot, msg))
