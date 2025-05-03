@@ -61,6 +61,6 @@ bot.message_handler(func=lambda msg: True)(lambda msg: funcao_inicio( msg))
 
 
 threading.Thread(target=monitorar_noticias, daemon=True).start()
-bot.delete_webhook()
+bot.remove_webhook()
 #Looping para o bot ficar rodando
 bot.polling()
