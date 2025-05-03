@@ -2,11 +2,8 @@ import threading
 
 import telebot
 from dotenv import load_dotenv
-
-from Elenco.Elenco import elenco_atual
 from Globais import Globais
 import os
-
 
 load_dotenv()
 chave_api_telegram = os.getenv('CHAVE_API_TELEGRAM')
@@ -15,7 +12,8 @@ chave_api_telegram = os.getenv('CHAVE_API_TELEGRAM')
 Globais.bot = telebot.TeleBot(chave_api_telegram)
 bot = Globais.bot
 
-
+from Curiosidades.CuriosidadesLogic import chamar_curiosidades
+from Elenco.Elenco import elenco_atual
 from Menu.Menus import pedir_nome, funcao_inicio
 from Quiz.QuizLogica import mensagem_inicial_quiz, iniciar_quiz, sair_quiz, processar_resposta
 from NotificacoesNoticias.NoticiasLogica import ultimas_noticias
@@ -24,6 +22,10 @@ from NotificacoesNoticias.NotificacoesLogica import ativar_noticias, desativar_n
 
 #Funcao que lista elenco atual da FURIA
 bot.message_handler(commands=['elenco_atual'])(lambda msg: elenco_atual(bot, msg))
+
+#Funcao de curiosodades da furia
+bot.message_handler(commands=['curiosidades'])(lambda msg: chamar_curiosidades(bot, msg))
+
 #Funcionalidade /quiz sair do quiz e correcao de respostas
 bot.message_handler(commands=['quiz'])(lambda msg: mensagem_inicial_quiz(msg))
 bot.message_handler(commands=['iniciar_quiz'])(lambda msg: iniciar_quiz(msg))
