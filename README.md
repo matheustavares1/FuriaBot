@@ -16,9 +16,11 @@ FuriaBot é um bot interativo desenvolvido em Python para a plataforma Telegram,
 
 ## 🛠️ Tecnologias Utilizadas
 
-- [Python 3](https://www.python.org/)
-- [pyTelegramBotAPI](https://pypi.org/project/pyTelegramBotAPI/)
-- [python-dotenv](https://pypi.org/project/python-dotenv/)
+- Python 3
+- pyTelegramBotAPI
+- python-dotenv
+- Selenium
+- BeautifulSoup
 - JSON para armazenamento de dados
 
 ---
