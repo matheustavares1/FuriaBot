@@ -13,7 +13,9 @@ def proximo_campeonato():
     options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    options.binary_location = '/usr/bin/chromium'
+    service = Service('/usr/bin/chromedriver')
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get('https://draft5.gg/equipe/330-FURIA/campeonatos')
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')

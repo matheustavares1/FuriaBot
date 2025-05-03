@@ -1,10 +1,7 @@
-import os
-
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 from Globais.Globais import *
 
@@ -15,10 +12,14 @@ def obter_jogos():
     options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.binary_location = '/usr/bin/chromium'
+
+    service = Service('/usr/bin/chromedriver')
+
 
     try:
         # Inicializando o driver com o caminho do ChromeDriver e as opções
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get('https://tips.gg/pt/team/furia-csgo/')
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         div_principal = soup.find('div', class_='answer')
