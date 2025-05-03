@@ -3,6 +3,7 @@ import threading
 import telebot
 from dotenv import load_dotenv
 
+from Elenco.Elenco import elenco_atual
 from Globais import Globais
 import os
 
@@ -21,7 +22,8 @@ from NotificacoesNoticias.NoticiasLogica import ultimas_noticias
 from NotificacoesNoticias.NotificacoesLogica import ativar_noticias, desativar_noticias, monitorar_noticias
 
 
-
+#Funcao que lista elenco atual da FURIA
+bot.message_handler(commands=['elenco_atual'])(lambda msg: elenco_atual(bot, msg))
 #Funcionalidade /quiz sair do quiz e correcao de respostas
 bot.message_handler(commands=['quiz'])(lambda msg: mensagem_inicial_quiz(msg))
 bot.message_handler(commands=['iniciar_quiz'])(lambda msg: iniciar_quiz(msg))
