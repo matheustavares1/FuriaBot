@@ -46,7 +46,8 @@ def funcao_inicio(message):
         return
 
     if user_id in usuarios_quiz:
-        enviar_menu(message)
-    else:
         mensagem_inicial_quiz(message)
+
+    else:
+        enviar_menu(message)
 
