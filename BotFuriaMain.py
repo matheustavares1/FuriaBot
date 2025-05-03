@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from Globais import Globais
 import os
 
+
 load_dotenv()
 chave_api_telegram = os.getenv('CHAVE_API_TELEGRAM')
 
@@ -20,6 +21,7 @@ from Menu.Menus import pedir_nome, funcao_inicio
 from Quiz.QuizLogica import mensagem_inicial_quiz, iniciar_quiz, sair_quiz, processar_resposta
 from NotificacoesNoticias.NoticiasLogica import ultimas_noticias
 from NotificacoesNoticias.NotificacoesLogica import ativar_noticias, desativar_noticias, monitorar_noticias
+from Historico.HistoricoLogica import historico_jogos
 
 
 #Funcao que lista elenco atual da FURIA
@@ -33,6 +35,9 @@ bot.message_handler(commands=['quiz'])(lambda msg: mensagem_inicial_quiz(msg))
 bot.message_handler(commands=['iniciar_quiz'])(lambda msg: iniciar_quiz(msg))
 bot.message_handler(commands=['sair_quiz'])(lambda msg: sair_quiz(msg))
 bot.callback_query_handler(func=lambda call: True)(lambda call: processar_resposta (call))
+
+#Funcao para puxar o historico dos ultimos jogos
+bot.message_handler(commands=['historico_de_jogos'])(lambda msg: historico_jogos( msg))
 
 #Proximo campeonato da FURIA CS
 bot.message_handler(commands=['proximo_campeonato'])(lambda msg: proximo_campeonato_handler(msg))
