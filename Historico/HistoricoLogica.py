@@ -10,14 +10,18 @@ from Globais.Globais import *
 
 #Scraping
 def obter_jogos():
+    # Cria um diretório temporário único para os dados do usuário
     temp_user_data_dir = tempfile.mkdtemp()
-    # Configurar o Chrome sem abrir janela)
+
+    # Configurações do Chrome
     options = Options()
-    # options.add_argument('--headless')  # Executa sem abrir janela
+    options.add_argument('--headless')  # Executa sem abrir a janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.binary_location = '/usr/bin/chromium'
-    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
+    options.binary_location = '/usr/bin/google-chrome'  # Caminho do Chrome/Chromium
+    options.add_argument(f'--user-data-dir={temp_user_data_dir}')  # Diretório de dados do usuário
+
+    # Caminho do chromedriver
     service = Service('/usr/local/bin/chromedriver')
 
     try:
