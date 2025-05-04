@@ -9,7 +9,7 @@ from Globais.Globais import *
 def proximo_campeonato():
     # Configurar o Chrome sem abrir janela)
     options = Options()
-    options.add_argument('--headless')  # Executa sem abrir janela
+   # options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.binary_location = '/usr/bin/chromium'

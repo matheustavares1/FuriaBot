@@ -9,7 +9,7 @@ from Globais.Globais import *
 #Scraping
 def obter_jogos():
     options = Options()
-    options.add_argument('--headless')  # Executa sem abrir janela
+   # options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.binary_location = '/usr/bin/chromium'
