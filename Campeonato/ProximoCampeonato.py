@@ -15,15 +15,6 @@ def proximo_campeonato():
     # Configurações para rodar o Chromium em modo Headless
     options = Options()
     options.add_argument("--headless")  # Modo sem interface gráfica
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.binary_location = "/usr/bin/chromium"
-
-    # Gere um diretório de dados de usuário único
-    user_data_dir = f"/tmp/chrome_user_data_{int(time.time())}"
-    options.add_argument(f"--user-data-dir={user_data_dir}")
-    options.add_argument("--no-first-run")
-    options.add_argument("--no-default-browser-check")
 
     # Configurar o WebDriver com o caminho do driver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
@@ -64,7 +55,7 @@ def formatar_mensagem_campeonato(campeonato):
 
  📌 *Campeonato:* {titulo}
  🗓 *Data:* {data}
- 🔗 *Link:* [Clique aqui para mais detalhes](https://draft5.gg{link})
+ 🔗 *Link:* {link}
      """
     return mensagem
 

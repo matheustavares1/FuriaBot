@@ -14,51 +14,44 @@ from Globais.Globais import *
 
 #Scraping
 def obter_jogos():
-    # Cria um diretório temporário único para os dados do usuário
-    temp_user_data_dir = tempfile.mkdtemp()
 
     # Configurações do Chrome
     options = Options()
-    options.add_argument('--headless')  # Executa sem abrir a janela
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    #options.binary_location = '/usr/bin/google-chrome'  # Caminho do Chrome/Chromium
-    #options.add_argument(f'--user-data-dir={temp_user_data_dir}')  # Diretório de dados do usuário
+   # options.add_argument('--headless')
 
+    # Inicializando o driver com o caminho do ChromeDriver e as opções
+    driver = webdriver.Chrome(service=Service (ChromeDriverManager().install()), options=options)
+    driver.get('https://tips.gg/pt/team/furia-csgo/')
+    wait = WebDriverWait(driver, 10)
 
-    try:
-        # Inicializando o driver com o caminho do ChromeDriver e as opções
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-        driver.get('https://tips.gg/pt/team/furia-csgo/')
-        wait = WebDriverWait(driver, 10)
+    # Espera até que a div principal com a classe 'answer' esteja presente
+    div_principal = wait.until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'answer'))
+    )
 
-        # Espera até que a div principal com a classe 'answer' esteja presente
-        div_principal = wait.until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'answer'))
-        )
+    # Espera até que a tabela dentro da div principal esteja presente
+    tabela = wait.until(
+        EC.presence_of_element_located((By.TAG_NAME, 'table'))
+    ).find_element(By.TAG_NAME, 'tbody')
 
-        # Espera até que a tabela dentro da div principal esteja presente
-        tabela = wait.until(
-            EC.presence_of_element_located((By.TAG_NAME, 'table'))
-        ).find_element(By.TAG_NAME, 'tbody')
+    jogos = []
+    linhas = wait.until(
+        EC.presence_of_all_elements_located((By.TAG_NAME, 'tr'))
+    )
 
-        jogos = []
-        linhas = wait.until(
-            EC.presence_of_all_elements_located((By.TAG_NAME, 'tr'))
-        )
-
-        jogos = []
-        for linha in linhas:
-            colunas = linha.find_elements(By.TAG_NAME, 'td')
+    jogos = []
+    for linha in linhas:
+        colunas = linha.find_elements(By.TAG_NAME, 'td')
+        if len(colunas) >= 3:
             data = colunas[0].text.strip()
             adversario = colunas[1].text.strip()
             resultado = colunas[2].text.strip()
             jogos.append((data, adversario, resultado))
+            if len(jogos) == 10:
+                break
 
-        return jogos
-    finally:
-        if 'driver' in locals() and driver:
-            driver.quit()
+    return jogos
+
 
 
 #FOrmatar dados extraidos dos ultimos jogos
