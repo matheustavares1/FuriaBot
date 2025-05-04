@@ -10,7 +10,7 @@ from Globais.Globais import *
 def proximo_campeonato():
     # Configurações para rodar o Chromium em modo Headless
     options = Options()
-    options.add_argument("--headless")  # Modo sem interface gráfica
+    #options.add_argument("--headless")  # Modo sem interface gráfica
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.binary_location = "/usr/bin/chromium"
