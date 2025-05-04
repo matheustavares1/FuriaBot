@@ -11,14 +11,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Globais.Globais import *
 import tempfile
-
+import getpass
 def proximo_campeonato():
     # Configurações para rodar o Chromium em modo Headless
     options = Options()
     options.add_argument("--headless")  # Modo sem interface gráfica
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--user-data-dir=/home/mt8822774/tmp_chrome')
+
+    user = getpass.getuser()
+    options.add_argument(f'--user-data-dir=/home/{user}/tmp_chrome')
 
     # Configurar o WebDriver com o caminho do driver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)

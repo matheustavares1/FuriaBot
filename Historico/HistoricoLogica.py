@@ -1,4 +1,4 @@
-
+import getpass
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -20,7 +20,8 @@ def obter_jogos():
    # options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--user-data-dir=/home/mt8822774/tmp_chrome')
+    user = getpass.getuser()
+    options.add_argument(f'--user-data-dir=/home/{user}/tmp_chrome')
 
     # Inicializando o driver com o caminho do ChromeDriver e as opções
     driver = webdriver.Chrome(service=Service (ChromeDriverManager().install()), options=options)
