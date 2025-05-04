@@ -14,7 +14,7 @@ def proximo_campeonato():
 
     # Configurações do Chrome
     options = Options()
-    options.add_argument('--headless')  # Executa sem abrir a janela
+    #options.add_argument('--headless')  # Executa sem abrir a janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.binary_location = '/usr/bin/google-chrome'  # Caminho do Chrome/Chromium
