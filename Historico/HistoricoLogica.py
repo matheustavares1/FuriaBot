@@ -20,9 +20,7 @@ def obter_jogos():
    # options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-
-    temp_dir = tempfile.mkdtemp()
-    options.add_argument(f'--user-data-dir={temp_dir}')
+    options.add_argument('--user-data-dir=/home/mt8822774/tmp_chrome')
 
     # Inicializando o driver com o caminho do ChromeDriver e as opções
     driver = webdriver.Chrome(service=Service (ChromeDriverManager().install()), options=options)
