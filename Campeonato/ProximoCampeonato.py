@@ -13,6 +13,7 @@ def proximo_campeonato():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.binary_location = '/usr/bin/chromium'
+    options.add_argument('--user-data-dir=/tmp/selenium-profile')
     service = Service('/usr/bin/chromedriver')
     driver = webdriver.Chrome(service=service, options=options)
     driver.get('https://draft5.gg/equipe/330-FURIA/campeonatos')
