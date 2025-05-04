@@ -1,4 +1,4 @@
-import tempfile
+
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 from Globais.Globais import *
-
+import tempfile
 
 #Scraping
 def obter_jogos():
@@ -20,6 +20,9 @@ def obter_jogos():
    # options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f'--user-data-dir={temp_dir}')
 
     # Inicializando o driver com o caminho do ChromeDriver e as opções
     driver = webdriver.Chrome(service=Service (ChromeDriverManager().install()), options=options)

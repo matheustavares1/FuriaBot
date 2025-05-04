@@ -1,3 +1,4 @@
+
 import time
 
 from bs4 import BeautifulSoup
@@ -9,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Globais.Globais import *
-
+import tempfile
 
 def proximo_campeonato():
     # Configurações para rodar o Chromium em modo Headless
@@ -17,6 +18,8 @@ def proximo_campeonato():
     options.add_argument("--headless")  # Modo sem interface gráfica
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f'--user-data-dir={temp_dir}')
 
     # Configurar o WebDriver com o caminho do driver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
