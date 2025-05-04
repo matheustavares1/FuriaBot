@@ -1,3 +1,5 @@
+import tempfile
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,11 +10,12 @@ from Globais.Globais import *
 
 #Scraping
 def obter_jogos():
+    temp_user_data_dir = tempfile.mkdtemp()
     options = Options()
    # options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
-    options.add_argument('--user-data-dir=/tmp/selenium-profile')
     options.add_argument('--disable-dev-shm-usage')
+    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
     options.binary_location = '/usr/bin/chromium'
 
     service = Service('/usr/bin/chromedriver')

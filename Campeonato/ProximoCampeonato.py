@@ -1,3 +1,5 @@
+import tempfile
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -7,13 +9,14 @@ from Globais.Globais import *
 
 
 def proximo_campeonato():
+    temp_user_data_dir = tempfile.mkdtemp()
     # Configurar o Chrome sem abrir janela)
     options = Options()
    # options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.binary_location = '/usr/bin/chromium'
-    options.add_argument('--user-data-dir=/tmp/selenium-profile')
+    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
     service = Service('/usr/bin/chromedriver')
     driver = webdriver.Chrome(service=service, options=options)
     driver.get('https://draft5.gg/equipe/330-FURIA/campeonatos')
