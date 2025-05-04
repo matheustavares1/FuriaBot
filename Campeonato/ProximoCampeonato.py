@@ -1,26 +1,22 @@
-import tempfile
-
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 from Globais.Globais import *
 
 
 def proximo_campeonato():
-    # Criar um diretório temporário único para os dados do usuário
-    temp_user_data_dir = tempfile.mkdtemp()
-
-    # Configurações do Firefox
+    # Configurações para rodar o Chromium em modo Headless
     options = Options()
-    #options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
-    service = Service('/usr/local/bin/geckodriver')
-
-    driver = webdriver.Firefox(service=service, options=options)
+    options.add_argument("--headless")  # Modo sem interface gráfica
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = "/usr/bin/chromium"
+   # service = Service("/usr/local/bin/chromedriver")
+    # Configurar o WebDriver com o caminho do driver
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get('https://draft5.gg/equipe/330-FURIA/campeonatos')
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
