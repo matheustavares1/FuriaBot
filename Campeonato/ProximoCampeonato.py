@@ -9,14 +9,16 @@ from Globais.Globais import *
 
 
 def proximo_campeonato():
+    # Criar um diretório temporário único para os dados do usuário
+    temp_user_data_dir = tempfile.mkdtemp()
 
+    # Configurações do Firefox
     options = Options()
     #options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-
-    # Caminho do chromedriver
-    service = Service('/usr/local/bin/chromedriver')
+    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
+    service = Service('/usr/local/bin/geckodriver')
 
     driver = webdriver.Firefox(service=service, options=options)
     driver.get('https://draft5.gg/equipe/330-FURIA/campeonatos')
