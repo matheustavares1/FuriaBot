@@ -11,15 +11,14 @@ from Globais.Globais import *
 #Scraping
 def obter_jogos():
     temp_user_data_dir = tempfile.mkdtemp()
+    # Configurar o Chrome sem abrir janela)
     options = Options()
-   # options.add_argument('--headless')  # Executa sem abrir janela
+    # options.add_argument('--headless')  # Executa sem abrir janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
     options.binary_location = '/usr/bin/chromium'
-
-    service = Service('/usr/bin/chromedriver')
-
+    options.add_argument(f'--user-data-dir={temp_user_data_dir}')
+    service = Service('/usr/local/bin/chromedriver')
 
     try:
         # Inicializando o driver com o caminho do ChromeDriver e as opções
