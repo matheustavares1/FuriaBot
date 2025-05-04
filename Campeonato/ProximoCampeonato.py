@@ -15,6 +15,8 @@ def proximo_campeonato():
     # Configurações para rodar o Chromium em modo Headless
     options = Options()
     options.add_argument("--headless")  # Modo sem interface gráfica
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
 
     # Configurar o WebDriver com o caminho do driver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
@@ -43,8 +45,6 @@ def proximo_campeonato():
     campeonato =[titulo, data, link]
 
     return campeonato
-
-
 
 
  #Formatar dados do próximo campeonato
