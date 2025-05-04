@@ -4,6 +4,10 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
 from Globais.Globais import *
 
@@ -15,26 +19,37 @@ def obter_jogos():
 
     # Configurações do Chrome
     options = Options()
-    #options.add_argument('--headless')  # Executa sem abrir a janela
+    options.add_argument('--headless')  # Executa sem abrir a janela
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.binary_location = '/usr/bin/google-chrome'  # Caminho do Chrome/Chromium
-    options.add_argument(f'--user-data-dir={temp_user_data_dir}')  # Diretório de dados do usuário
+    #options.binary_location = '/usr/bin/google-chrome'  # Caminho do Chrome/Chromium
+    #options.add_argument(f'--user-data-dir={temp_user_data_dir}')  # Diretório de dados do usuário
 
-    # Caminho do chromedriver
-    service = Service('/usr/local/bin/chromedriver')
 
     try:
         # Inicializando o driver com o caminho do ChromeDriver e as opções
-        driver = webdriver.Chrome(service=service, options=options)
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get('https://tips.gg/pt/team/furia-csgo/')
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        div_principal = soup.find('div', class_='answer')
-        tabela = div_principal.find('table').find('tbody')
+        wait = WebDriverWait(driver, 10)
+
+        # Espera até que a div principal com a classe 'answer' esteja presente
+        div_principal = wait.until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'answer'))
+        )
+
+        # Espera até que a tabela dentro da div principal esteja presente
+        tabela = wait.until(
+            EC.presence_of_element_located((By.TAG_NAME, 'table'))
+        ).find_element(By.TAG_NAME, 'tbody')
 
         jogos = []
-        for linha in tabela.find_all('tr'):
-            colunas = linha.find_all('td')
+        linhas = wait.until(
+            EC.presence_of_all_elements_located((By.TAG_NAME, 'tr'))
+        )
+
+        jogos = []
+        for linha in linhas:
+            colunas = linha.find_elements(By.TAG_NAME, 'td')
             data = colunas[0].text.strip()
             adversario = colunas[1].text.strip()
             resultado = colunas[2].text.strip()

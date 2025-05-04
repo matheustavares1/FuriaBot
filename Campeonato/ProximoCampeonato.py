@@ -5,7 +5,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from Globais.Globais import *
 
 
@@ -28,10 +30,25 @@ def proximo_campeonato():
     driver.get('https://draft5.gg/equipe/330-FURIA/campeonatos')
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
-    titulo = soup.find('h4', class_='TournamentCard__TournamentCardDescriptionTitle-sc-1vb6wff-2 eGbvbu').text.strip()
-    data = soup.find('small', class_='TournamentCard__TournamentCardDescriptionDate-sc-1vb6wff-3 fKZACE').text.strip()
-    link_classe = soup.find('a', class_='TournamentCard__TournamentCardContainer-sc-1vb6wff-0 TaBXn TournamentList__StyledTournamentCard-sc-10easx8-0 lmkAmS')
-    link = link_classe.get('href')
+
+    wait = WebDriverWait(driver, 10)
+    # Espera até que o título do próximo campeonato esteja presente
+    titulo_element = wait.until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'TournamentCard__TournamentCardDescriptionTitle-sc-1vb6wff-2'))
+    )
+    titulo = titulo_element.text.strip()
+
+    # Espera até que a data do próximo campeonato esteja presente
+    data_element = wait.until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'TournamentCard__TournamentCardDescriptionDate-sc-1vb6wff-3'))
+    )
+    data = data_element.text.strip()
+
+    # Espera até que o link do próximo campeonato esteja presente
+    link_element = wait.until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'TournamentCard__TournamentCardContainer-sc-1vb6wff-0'))
+    )
+    link = link_element.get_attribute('href')
     campeonato =[titulo, data, link]
 
     return campeonato
