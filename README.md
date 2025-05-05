@@ -53,6 +53,8 @@ python BotFuriaMain.py
 - Git
 - Conta no [Telegram](https://web.telegram.org)
 - Um bot criado via [BotFather](https://t.me/BotFather) (para gerar seu token)
+- Google Chrome instalado
+- Chrome driver instalado (compatível com o Chrome instalado)
 
 
 ## Conseguindo o Token do Telegram:
